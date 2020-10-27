@@ -11,7 +11,11 @@ CREATE TABLE departments (
 
 CREATE TABLE roles (
   RoleID INT AUTO_INCREMENT PRIMARY KEY,
-  Title VARCHAR(30) NULL
+  Title VARCHAR(30) NULL,
+  Salary DECIMAL NULL,
+  DeptID INT,
+  FOREIGN KEY (DeptID)
+	REFERENCES departments(DeptID)
 );
 
 CREATE TABLE personnel (
@@ -19,15 +23,11 @@ CREATE TABLE personnel (
   First_name VARCHAR(30) NULL,
   Last_name VARCHAR(30) NULL,
   RoleID INT,
-  CONSTRAINT title
   FOREIGN KEY (RoleID)
 	REFERENCES roles(RoleID),
-  DeptID INT,
-  CONSTRAINT dept
-  FOREIGN KEY (DeptID)
-	REFERENCES departments(DeptID),
-  Salary INT NULL,
-  Manager VARCHAR(30) NULL
+  ManagerID INT,
+  FOREIGN KEY (ManagerID)
+	REFERENCES personnel(ID)
 );
 
 INSERT INTO departments (Department)
@@ -42,25 +42,25 @@ VALUES
 ("President"),
 ("Supporting Character");
 
-INSERT INTO personnel (First_name, Last_name, RoleID, DeptID, Salary, Manager)
-VALUES ("Bugs", "Bunny", 1, 1, 25000, NULL);
+INSERT INTO personnel (First_name, Last_name, RoleID)
+VALUES ("Bugs", "Bunny", 1);
 
-INSERT INTO personnel (First_name, Last_name, RoleID, DeptID, Salary, Manager)
-VALUES ("Elmer", "Fudd", 2, 2, 2000, NULL);
+INSERT INTO personnel (First_name, Last_name, RoleID)
+VALUES ("Elmer", "Fudd", 2);
 
-INSERT INTO personnel (First_name, Last_name, RoleID, DeptID, Salary, Manager)
-VALUES ("Daffy", "Duck", 3, 1, 15000, "Bugs Bunny");
+INSERT INTO personnel (First_name, Last_name, RoleID, ManagerID)
+VALUES ("Daffy", "Duck", 3, 1);
 
--- INSERT INTO personnel (First_name, Last_name, Title, Department, Salary, Manager)
--- VALUES ("Bugs", "Bunny", 1, "Good Guys", 25000, NULL);
+-- INSERT INTO personnel (First_name, Last_name, RoleID, ManagerID)
+-- VALUES ("Road", "Runner", 4, 1, 10000, "Daffy Duck");
 
--- INSERT INTO personnel (First_name, Last_name, Title, Department, Salary, Manager)
--- VALUES ("Bugs", "Bunny", 1, "Good Guys", 25000, NULL);
+-- INSERT INTO personnel (First_name, Last_name, RoleID, ManagerID)
+-- VALUES ("Tasmanian", "Devil", 4, 2, 10000, "Elmer Fudd");
 
--- INSERT INTO personnel (First_name, Last_name, Title, Department, Salary, Manager)
--- VALUES ("Bugs", "Bunny", 1, "Good Guys", 25000, NULL);
+-- INSERT INTO personnel (First_name, Last_name, RoleID, ManagerID)
+-- VALUES ("Porky", "Pig", 4, 1, 10000, "Daffy Duck");
 
--- INSERT INTO personnel (First_name, Last_name, Title, Department, Salary, Manager)
+-- INSERT INTO personnel (First_name, Last_name, RoleID, DeptID, Salary, Manager)
 -- VALUES ("Bugs", "Bunny", 1, "Good Guys", 25000, NULL);
 
 

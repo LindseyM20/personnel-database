@@ -1,0 +1,25 @@
+{
+  "name": "personnel-manager",
+  "version": "1.0.0",
+  "description": "A command-line application for doing CRUD to your company's personnel database",
+  "main": "connection.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LindseyM20/personnel-manager.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LindseyM20/personnel-manager/issues"
+  },
+  "homepage": "https://github.com/LindseyM20/personnel-manager#readme",
+  "dependencies": {
+    "console.table": "^0.10.0",
+    "inquirer": "^7.3.3",
+    "mysql": "^2.18.1"
+  }
+}
