@@ -12,7 +12,7 @@ function start() {
       name: "action",
       type: "list",
       message: "What would you like to do?",
-      choices: ["View all employees", "Add an employee", "Add a new role", "Update an employee's title", "EXIT"]
+      choices: ["View all employees", "Add an employee", "Add a new role", "Add a new department", "Update an employee's title", "EXIT"]
     })
     .then(function (answer) {
       // based on their answer, call the functions for what they want to do
@@ -27,6 +27,10 @@ function start() {
 
         case "Add a new role":
           addRole();
+          break;
+
+        case "Add a new department":
+          addDept();
           break;
 
         case "Update an employee's title":
@@ -119,7 +123,8 @@ function addEmployee() {
           addRole();
           break;
       }
-      var query1 = connection.query(
+      // var query1 = 
+      connection.query(
         "INSERT INTO personnel SET ?",
         {
           First_name: answers.FName,
@@ -136,10 +141,11 @@ function addEmployee() {
           // start();
         });
       // logs the actual query being run
-      console.log(query1.sql);
+      // console.log(query1.sql);
       // console.table(query1.sql);
 
-      var query2 = connection.query(
+      // var query2 = 
+      connection.query(
         "INSERT INTO roles SET ?",
         {
           Title: answers.role2
@@ -152,9 +158,10 @@ function addEmployee() {
           // updateProduct();
         });
       // logs the actual query being run
-      console.log(query2.sql);
+      // console.log(query2.sql);
 
-      var query3 = connection.query(
+      // var query3 = 
+      connection.query(
         "INSERT INTO departments SET ?",
         {
           Department: answers.dept2
@@ -167,7 +174,7 @@ function addEmployee() {
           // updateProduct();
         });
       // logs the actual query being run
-      console.log(query3.sql);
+      // console.log(query3.sql);
     });
 
 }
@@ -180,7 +187,6 @@ function addRole() {
       message: "What is the new role?"
     })
     .then(function (answer) {
-      // var query = 
       connection.query(
         "INSERT INTO roles SET ?",
         {
@@ -189,16 +195,41 @@ function addRole() {
         function (err, answer) {
           if (err)
             throw err;
-          console.log(answer.affectedRows + " role data added!\n");
+          console.log(answer.affectedRows + " new role added!\n");
           // Call updateProduct AFTER the INSERT completes
           // updateProduct();
         });
-      // logs the actual query being run
-      // console.log(query.sql);
+
     })
   // start();
 }
 
+
+
+function addDept() {
+  inquirer
+    .prompt({
+      name: "newDept",
+      type: "input",
+      message: "What is the new department?"
+    })
+    .then(function (answer) {
+      connection.query(
+        "INSERT INTO departments SET ?",
+        {
+          Department: answer.newDept
+        },
+        function (err, answer) {
+          if (err)
+            throw err;
+          console.log(answer.affectedRows + " new department added!\n");
+          // Call updateProduct AFTER the INSERT completes
+          // updateProduct();
+        });
+
+    })
+  // start();
+}
 
 
 
