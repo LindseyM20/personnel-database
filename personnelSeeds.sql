@@ -1,5 +1,4 @@
 DROP DATABASE IF EXISTS personnelDB;
-
 CREATE DATABASE personnelDB;
 
 USE personnelDB;
@@ -63,6 +62,10 @@ VALUES ("Daffy", "Duck", 3, 1);
 -- INSERT INTO personnel (First_name, Last_name, RoleID, DeptID, Salary, Manager)
 -- VALUES ("Bugs", "Bunny", 1, "Good Guys", 25000, NULL);
 
+
+-- DELETE FROM personnel WHERE Last_name = 'runner';
+-- DELETE FROM roles WHERE RoleID >= 5;
+-- DELETE FROM departments WHERE DeptID >= 3;
 
 SELECT * FROM departments;
 SELECT * FROM roles;

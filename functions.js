@@ -12,13 +12,21 @@ function start() {
       name: "action",
       type: "list",
       message: "What would you like to do?",
-      choices: ["View all employees", "Add an employee", "Add a new role", "Add a new department", "Update an employee's title", "EXIT"]
+      choices: ["View all employees", "View all roles", "View all departments", "Add an employee", "Add a new role", "Add a new department", "Update an employee's title", "EXIT"]
     })
     .then(function (answer) {
       // based on their answer, call the functions for what they want to do
       switch (answer.action) {
         case "View all employees":
           employeeView();
+          break;
+
+        case "View all roles":
+          rolesView();
+          break;
+
+        case "View all departments":
+          departmentsView();
           break;
 
         case "Add an employee":
@@ -49,6 +57,22 @@ async function employeeView() {
     "SELECT * FROM personnel"
   )
   console.table(personnel);
+  start();
+}
+
+async function rolesView() {
+  const roles = await connection.query(
+    "SELECT * FROM roles"
+  )
+  console.table(roles);
+  start();
+}
+
+async function departmentsView() {
+  const departments = await connection.query(
+    "SELECT * FROM departments"
+  )
+  console.table(departments);
   start();
 }
 
@@ -123,7 +147,7 @@ function addEmployee() {
           addRole();
           break;
       }
-      // var query1 = 
+     
       connection.query(
         "INSERT INTO personnel SET ?",
         {
@@ -140,11 +164,7 @@ function addEmployee() {
           // updateProduct();
           // start();
         });
-      // logs the actual query being run
-      // console.log(query1.sql);
-      // console.table(query1.sql);
 
-      // var query2 = 
       connection.query(
         "INSERT INTO roles SET ?",
         {
@@ -157,10 +177,7 @@ function addEmployee() {
           // Call updateProduct AFTER the INSERT completes
           // updateProduct();
         });
-      // logs the actual query being run
-      // console.log(query2.sql);
 
-      // var query3 = 
       connection.query(
         "INSERT INTO departments SET ?",
         {
@@ -233,6 +250,6 @@ function addDept() {
 
 
 
-
+// function updateTitle() {}
 
 // select * from personnel where DeptID = 4
