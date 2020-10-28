@@ -11,7 +11,7 @@ CREATE TABLE departments (
 CREATE TABLE roles (
   RoleID INT AUTO_INCREMENT PRIMARY KEY,
   Title VARCHAR(30) NULL,
-  Salary DECIMAL NULL,
+  Salary INT NULL,
   DeptID INT,
   FOREIGN KEY (DeptID)
 	REFERENCES departments(DeptID)
@@ -34,12 +34,13 @@ VALUES
 ("Good Guy"),
 ("Bad Guy");
 
-INSERT INTO roles (Title)
+INSERT INTO roles (Title, Salary, DeptID)
 VALUES 
-("CEO"),
-("CFO"),
-("President"),
-("Supporting Character");
+("CEO", 25000, 1),
+("CFO", 20000, 2),
+("President", 15000, 1),
+("Protagonist", 10000, 1),
+("Antagonist", 10000, 2);
 
 INSERT INTO personnel (First_name, Last_name, RoleID)
 VALUES ("Bugs", "Bunny", 1);
@@ -51,20 +52,19 @@ INSERT INTO personnel (First_name, Last_name, RoleID, ManagerID)
 VALUES ("Daffy", "Duck", 3, 1);
 
 -- INSERT INTO personnel (First_name, Last_name, RoleID, ManagerID)
--- VALUES ("Road", "Runner", 4, 1, 10000, "Daffy Duck");
+-- VALUES ("Road", "Runner", 4, 3);
 
--- INSERT INTO personnel (First_name, Last_name, RoleID, ManagerID)
--- VALUES ("Tasmanian", "Devil", 4, 2, 10000, "Elmer Fudd");
+INSERT INTO personnel (First_name, Last_name, RoleID, ManagerID)
+VALUES ("Tasmanian", "Devil", 5, 2);
 
--- INSERT INTO personnel (First_name, Last_name, RoleID, ManagerID)
--- VALUES ("Porky", "Pig", 4, 1, 10000, "Daffy Duck");
+INSERT INTO personnel (First_name, Last_name, RoleID, ManagerID)
+VALUES ("Porky", "Pig", 4, 3);
 
--- INSERT INTO personnel (First_name, Last_name, RoleID, DeptID, Salary, Manager)
--- VALUES ("Bugs", "Bunny", 1, "Good Guys", 25000, NULL);
 
 
 -- DELETE FROM personnel WHERE Last_name = 'runner';
--- DELETE FROM roles WHERE RoleID >= 5;
+-- DELETE FROM roles WHERE RoleID = 4;
+-- DELETE FROM roles WHERE Title = 'Supporting Character';
 -- DELETE FROM departments WHERE DeptID >= 3;
 
 SELECT * FROM departments;

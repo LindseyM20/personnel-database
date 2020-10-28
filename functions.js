@@ -98,30 +98,32 @@ function addEmployee() {
       when: function (answers) {
         return answers.role === "OTHER";
       }
-    }, {
-      name: "dept",
-      type: "list",
-      message: "What is the employee's department?",
-      choices: ["Good Guys", "Bad Guys", "OTHER"]
-    }, {
-      name: "dept2",
-      type: "input",
-      message: "Please enter a department:",
-      when: function (answers) {
-        return answers.dept === "OTHER";
-      }
-    }, {
-      name: "salary",
-      type: "input",
-      message: "What is the employee's salary?",
-      validate: function (value) {
-        if (isNaN(value) === false) {
-          return true;
-        }
-        console.log("Please enter numbers only, no special characters")
-        return false;
-      },
-    }, {
+    }, 
+    // {
+    //   name: "dept",
+    //   type: "list",
+    //   message: "What is the employee's department?",
+    //   choices: ["Good Guys", "Bad Guys", "OTHER"]
+    // }, {
+    //   name: "dept2",
+    //   type: "input",
+    //   message: "Please enter a department:",
+    //   when: function (answers) {
+    //     return answers.dept === "OTHER";
+    //   }
+    // }, {
+    //   name: "salary",
+    //   type: "input",
+    //   message: "What is the employee's salary?",
+    //   validate: function (value) {
+    //     if (isNaN(value) === false) {
+    //       return true;
+    //     }
+    //     console.log("Please enter numbers only, no special characters")
+    //     return false;
+    //   },
+    // }, 
+    {
       name: "manager",
       type: "input",
       message: "Who is the employee's manager?"
@@ -198,21 +200,40 @@ function addEmployee() {
 
 function addRole() {
   inquirer
-    .prompt({
+    .prompt([{
       name: "newRole",
       type: "input",
-      message: "What is the new role?"
-    })
+      message: "What is the title of the new role?"
+    }, {
+      name: "newRoleSal",
+      type: "input",
+      message: "What is the new role's salary?",
+            validate: function (value) {
+        if (isNaN(value) === false) {
+          return true;
+        }
+        console.log("\nPlease enter numbers only, no special characters")
+        return false;
+      },
+    }, {
+      name: "newRoleDept",
+      type: "input",
+      message: "Which department is the new role in?"
+    }])
     .then(function (answer) {
       connection.query(
         "INSERT INTO roles SET ?",
         {
-          Title: answer.newRole
+          Title: answer.newRole,
+          Salary: answer.newRoleSal,
+          DeptID: answer.newRoleDept
         },
+        
         function (err, answer) {
+         
           if (err)
             throw err;
-          console.log(answer.affectedRows + " new role added!\n");
+          console.log(`${answer.affectedRows} new role added!\n`);
           // Call updateProduct AFTER the INSERT completes
           // updateProduct();
         });
